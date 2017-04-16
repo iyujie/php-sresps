@@ -8,7 +8,7 @@ $ItemName = mysqli_real_escape_string($con, $data->ItemName);
 $ItemPrice = mysqli_real_escape_string($con, $data->ItemPrice);
 
 // mysqli insert query
-$query = "INSERT into items (ItemName,ItemPrice) VALUES ('$ItemName','$ItemPrice')";
+$query = "INSERT into items (ItemName,ItemPrice) VALUES ('$ItemName','$ItemPrice)";
 // Inserting data into database
 mysqli_query($con, $query);
 echo true;
