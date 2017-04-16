@@ -5,7 +5,7 @@ require_once 'database_connections.php';
 $data = json_decode(file_get_contents("php://input")); 
 // Escaping special characters from updated data
 $ItemID = mysqli_real_escape_string($con, $data->ItemID);
-$ItemID = mysqli_real_escape_string($con, $data->ItemName);
+$ItemName = mysqli_real_escape_string($con, $data->ItemName);
 $ItemPrice = mysqli_real_escape_string($con, $data->ItemPrice);
 
 // mysqli query to insert the updated data
