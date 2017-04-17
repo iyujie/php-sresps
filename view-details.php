@@ -7,11 +7,11 @@
     
 <div class="form-group">
     <label for="itemName">Item Purchased:</label>
-    <select name="itemName" id="itemName" name="ItemName" class="form-control" data-ng-model="Item.item">
-        <option value="drug1">Acetaminophen</option>
-        <option value="drug2">Adderall</option>
-        <option value="drug3">Alprazolam</option>
-        <option value="drug4">Amitriptyline</option>
+    <select id="itemName" name="ItemName" class="form-control" data-ng-model="Item.item">
+        <option value="Acetaminophen">Acetaminophen</option>
+        <option value="Adderall">Adderall</option>
+        <option value="Alprazolam">Alprazolam</option>
+        <option value="Amitriptyline">Amitriptyline</option>
         <option value="drug5">Amoxicillin</option>
         <option value="drug6">Ativan</option>
         <option value="drug7">Ciprofloxacin</option>
@@ -31,7 +31,7 @@
 
 <div class="form-group">
     <label for="Country">Country:</label>
-    <select name="itemName" id="Country" name="Country" class="form-control" data-ng-model="Item.country">
+    <select id="Country" name="Country" class="form-control" data-ng-model="Item.country">
         <option value="country1">Malaysia</option>
         <option value="country2">Singapore</option>
         <option value="country3">Thailand</option>
@@ -54,23 +54,21 @@
     <input type="text" id="Price" name="Price" class="form-control" data-ng-model="Item.price"/>
 </div>
 
-<div ng-controller="dateTimeController">      
+    
             <div class="form-group">
                 <label for="dateSold">Date:</label>
-                <div class='input-group date' >
+                
                 <input type='text' name="SalesDate" class="form-control" placeholder="dd/mm/yyyy" data-ng-model="Item.date"/>
-                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-            </div>
+            
 
             </div>
     
-</div>    
     
 <div class="form-group">
-    <button ng-click="saveStuff()" class="btn btn-primary">Save</button>
-    <button ng-click="cancelStuff()" class="btn btn-primary">Cancel</button>
+    <button ng-click="save()" class="btn btn-primary">Save</button>
+    <button ng-click="cancel()" class="btn btn-primary">Cancel</button>
 </div>
     
     
 </form>
+       

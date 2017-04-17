@@ -27,8 +27,47 @@
                         <td style="border:none" class="glyphicon glyphicon-trash" data-ng-click="delSales($index)">
                         </td>
                     </tr>
+                    <?php
+
+                        $connect=mysql_connect('localhost', 'root', '');
+                        
+
+                        if(mysqli_connect_errno($connect))
+                        {
+                            echo 'Failed to connect';
+                        }
+                    
+                        mysql_select_db('phpsres', $connect);
+
+                        $query = "SELECT * FROM phpsres.Sales"; 
+                        $result = mysql_query($query);
+                        if (!$result) { 
+                            die('Invalid query: ' . mysql_error());
+                        }else
+                        {
+                            while($row = mysql_fetch_array($result)){   
+                                echo "<tr>
+                                <td>" . $row['SalesID'] . "</td>
+                                <td>" . $row['CustomerName'] . "</td>
+                                <td>" . $row['ItemID'] . "</td>
+                                <td>" . $row['Country'] . "</td>
+                                <td>" . $row['Quantity'] . "</td>
+                                <td>" . $row['Price'] . "</td>
+                                <td>" . $row['SalesDate'] . "</td>
+
+                                </tr>";  
+
+                            }
+                        }
+
+                        
+
+                        mysql_close(); 
+                    
+                    ?>
                    
                 </table>
 <div class="form-group">
     <button data-ng-click="addSales()" class="btn btn-primary">Add Sales</button>
 </div>
+    

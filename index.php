@@ -11,7 +11,7 @@
     <script src="bootstrap-3.3.7-dist/js/script.js"></script>
     <script src="bootstrap-3.3.7-dist/js/angular-route.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
-
+  
     
 </head>
 <body>
