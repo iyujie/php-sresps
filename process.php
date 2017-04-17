@@ -1,7 +1,4 @@
-<?php include 'database.php'; ?>
-
-<?php
-
+<?php include 'database.php';
 
 $customer_name=$_POST['CustomerName'];
 $item_id=$_POST['ItemName'];
@@ -14,7 +11,8 @@ $sales_date=$_POST['SalesDate'];
 
 
 mysqli_query($connect,"INSERT INTO Sales(SalesID,CustomerName,ItemID,Country,Quantity,Price,SalesDate)
-		        VALUES (NULL, '$customer_name','$item_id','$country','$quantity', '$price', '$sales_date'); UPDATE Items SET StockLeft = StockLeft - '$quantity' WHERE ItemID = '$item_id'");
+		        VALUES (NULL, '$customer_name','$item_id','$country','$quantity', '$price', '$sales_date'); 
+                UPDATE Items SET StockLeft = StockLeft - '$quantity' WHERE ItemID = '$item_id'");
 			
 $stockchecker=mysqli_query($connect,"SELECT ItemName FROM Items WHERE StockLeft <= 5");
 if($stockchecker != NULL)
