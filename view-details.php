@@ -1,8 +1,8 @@
-<form method="post" action="">
+<form method="post">
 
 <div class="form-group">
     <label for="custName">Customer Name:</label>
-    <input type="text" id="CustomerName" name="CustomerName" class="form-control" data-ng-model="Item.name"/>
+    <input type="text" id="CustomerName" name="CustomerName" class="form-control" data-ng-model="Item.name" required/>
 </div>    
     
 <div class="form-group">
@@ -46,12 +46,12 @@
     
 <div class="form-group">
     <label for="Quantity">Quantity:</label>
-    <input type="text" id="Quantity" name="Quantity" class="form-control" data-ng-model="Item.quantity"/>
+    <input type="text" id="Quantity" name="Quantity" class="form-control" data-ng-model="Item.quantity" required/>
 </div>   
 
 <div class="form-group">
     <label for="itemPrice">Total Price (MYR):</label>
-    <input type="text" id="Price" name="Price" class="form-control" data-ng-model="Item.price"/>
+    <input type="text" id="Price" name="Price" class="form-control" data-ng-model="Item.price" required/>
 </div>
 
     
@@ -65,7 +65,7 @@
     
     
 <div class="form-group">
-    <button ng-click="save()" class="btn btn-primary">Save</button>
+    <button type="submit" name="btn-submit" class="btn btn-primary">Save</button>
     <button ng-click="cancel()" class="btn btn-primary">Cancel</button>
 </div>
     

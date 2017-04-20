@@ -12,7 +12,7 @@
                         <th>Date</th>
                        
                     </tr>
-                    <tr data-ng-repeat="item in data | filter:search">
+                    <!--tr data-ng-repeat="item in data | filter:search">
                         <td>{{item.id}}</td>
                         <td>{{item.name}}</td>
                         <td>{{item.item}}</td>
@@ -21,12 +21,9 @@
                         <td>{{item.price}}</td>
                         <td>{{item.date}}</td>
                         
-                        <td style="border:none" class="glyphicon glyphicon-edit" data-ng-click="editSales($index)">
-                    
-                        </td>
-                        <td style="border:none" class="glyphicon glyphicon-trash" data-ng-click="delSales($index)">
-                        </td>
-                    </tr>
+                        <td style="border:none"> <button class="glyphicon glyphicon-edit" data-ng-click="editSales($index)"></button></td>
+                        <td style="border:none"> <button class="glyphicon glyphicon-trash" data-ng-click="delSales($index)"></button></td>
+                    </tr -->
                     <?php
 
                         $connect=mysql_connect('localhost', 'root', '');
@@ -49,13 +46,14 @@
                                 echo "<tr>
                                 <td>" . $row['SalesID'] . "</td>
                                 <td>" . $row['CustomerName'] . "</td>
-                                <td>" . $row['ItemID'] . "</td>
+                                <td>" . $row['ItemName'] . "</td>
                                 <td>" . $row['Country'] . "</td>
                                 <td>" . $row['Quantity'] . "</td>
                                 <td>" . $row['Price'] . "</td>
-                                <td>" . $row['SalesDate'] . "</td>
-
-                                </tr>";  
+                                <td>" . $row['SalesDate'] . "</td>";
+                                echo "<td><a href=\"edit.php?id=". $row['SalesID'] ."\"><strong>Edit</strong></td>";
+                                echo "<td><a href=\"delete.php?id=". $row['SalesID'] ."\"onclick=\"return confirm('Are you sure to delete this?');\"><strong>Delete</strong>";
+                                echo "</tr>";  
 
                             }
                         }
