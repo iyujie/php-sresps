@@ -1,9 +1,9 @@
-<?php include 'database.php';
+<?php require_once 'database.php';
 
 
 $id = $_GET['id'];
 $query = "DELETE FROM phpsres.Sales WHERE SalesID=" . $id; 
-                        $result = mysql_query($query);
+                        $result = mysqli_query($con, $query);
                         if (!$result) { 
                             die('Invalid query: ' . mysql_error());
                         }else
