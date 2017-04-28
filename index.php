@@ -11,15 +11,15 @@
     <script src="bootstrap-3.3.7-dist/js/script.js"></script>
     <script src="bootstrap-3.3.7-dist/js/angular-route.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
-  
+    <script src="bootstrap-3.3.7-dist/style.css"></script>
     
 </head>
 <body>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-xs-12">
-                <h1>People Health Pharmacy (PHP) Inc. Sales Module</h1>
-            
+            <div class="col-xs-12" style="padding-top: 15px; padding-bottom:15px;">
+                    <h1 style="display:inline">People Health Pharmacy (PHP) Inc. Sales Module</h1>
+                    <a href="exportData.php" class="btn btn-primary" style="display:inline; float:right;">Export into CSV file</a>
             </div>
         </div>
         
@@ -120,7 +120,8 @@
     });    
 
 </script>    
-    
+
+
     
     
 </body>    
