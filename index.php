@@ -1,25 +1,49 @@
 <!DOCTYPE html>
-<html data-ng-app="phpApp">
+<html>
 <head>
     <title>PHP-SRES</title>
     <meta name="viewport" content="width=device-width, intial-scale=1.0"/>
-    
     <link href="https://bootswatch.com/simplex/bootstrap.min.css" rel="stylesheet"/>
-    <script src="bootstrap-3.3.7-dist/js/jquery.min.js"></script>
     <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
-    <script src="bootstrap-3.3.7-dist/js/angular.min.js"></script>
-    <script src="bootstrap-3.3.7-dist/js/script.js"></script>
-    <script src="bootstrap-3.3.7-dist/js/angular-route.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
-    <script src="bootstrap-3.3.7-dist/style.css"></script>
     
 </head>
 <body>
-    <div class="container-fluid">
+    <div class="container-fluid" style="width:15%; float:left; padding-top:15px; background-color:#f4f4f4;">
+        <ul class="nav nav-pills nav-stacked">
+            <li class="active"><a href="index.php">Home</a></li>
+            <li><a href="index.php">Add Sales</a></li>
+            <li><a href="addSales.php">Add/Delete Product</a></li>
+            <li><a href="addSales.php">Add/Edit Stock</a></li>
+            <li><a href="addSales.php">Sales Graph Visual</a></li>
+            <li><a href="addSales.php">Add Sales</a></li>
+            <li><a href="addSales.php">Add Sales</a></li>
+          <li class="disabled"><a href="#">Disabled</a></li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+              Dropdown <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Action</a></li>
+              <li><a href="#">Another action</a></li>
+              <li><a href="#">Something else here</a></li>
+              <li class="divider"></li>
+              <li><a href="#">Separated link</a></li>
+            </ul>
+          </li>
+        </ul>
+        
+        <!--div class="list-group">
+              <a href="index.php" class="list-group-item">Home</a>
+              <a href="addSales.php" class="list-group-item">Add Sales</a>
+              <a href="index.php" class="list-group-item">Add/Delete Product</a>
+            <a href="#" class="list-group-item">Edit Stock</a>
+        </div-->
+    </div>
+    <div class="container-fluid" style="width:85%; float:right">
         <div class="row">
-            <div class="col-xs-12" style="padding-top: 15px; padding-bottom:15px;">
-                    <h1 style="display:inline">People Health Pharmacy (PHP) Inc. Sales Module</h1>
-                    <a href="exportData.php" class="btn btn-primary" style="display:inline; float:right;">Export into CSV file</a>
+            <div class="col-xs-12">
+                    <h1>People Health Pharmacy (PHP) Inc. Sales Module</h1>
+                    
             </div>
         </div>
         
@@ -94,6 +118,7 @@
                 </table>
                 <div class="form-group">
                     <a href="addSales.php" class="btn btn-primary">Add Sales</a>
+                    <a href="exportData.php" class="btn btn-danger" style="display:inline; float:right;">Export into CSV file</a>
                 </div>
 
             </div>
