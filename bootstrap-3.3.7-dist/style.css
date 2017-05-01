@@ -1,0 +1,8 @@
+#main-title h1{
+    display:inline;
+}
+
+#main-title a {
+  display:inline; 
+    float:right;
+}

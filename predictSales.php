@@ -16,7 +16,7 @@
             <li><a href="addSales.php">Add/Edit Stock</a></li>
             <li><a href="addSales.php">Sales Graph Visual</a></li>
             <li><a href="addSales.php">Add Sales</a></li>
-            <li><a href="predictSales.php">Check In-Demand Products</a></li>
+            <li><a href="addSales.php">Add Sales</a></li>
           <li class="disabled"><a href="#">Disabled</a></li>
           <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -42,7 +42,7 @@
     <div class="container-fluid" style="width:85%; float:right">
         <div class="row">
             <div class="col-xs-12">
-                    <h1>People Health Pharmacy (PHP) Inc. Sales Module</h1>
+                    <h1>In-Demand Products  </h1>
                     
             </div>
         </div>
@@ -55,72 +55,37 @@
                 <table class="table table-stripped table-hover" id="table">
                     <tr>
                         <th>ID</th>
-                        <th>Customer Name</th>
-                        <th>Item Purchased</th>
-                        <th>Country</th>
-                        <th>Quantity</th>
-                        <th>Price</th>
-                        <th>Date</th>
+                        <th>Item Name</th>
+                        <th>Quantity Sold</th>
                        
                     </tr>
-                    <!--tr data-ng-repeat="item in data | filter:search">
-                        <td>{{item.id}}</td>
-                        <td>{{item.name}}</td>
-                        <td>{{item.item}}</td>
-                        <td>{{item.country}}</td>
-                        <td>{{item.quantity}}</td>
-                        <td>{{item.price}}</td>
-                        <td>{{item.date}}</td>
-                        
-                        <td style="border:none"> <button class="glyphicon glyphicon-edit" data-ng-click="editSales($index)"></button></td>
-                        <td style="border:none"> <button class="glyphicon glyphicon-trash" data-ng-click="delSales($index)"></button></td>
-                    </tr -->
                     <?php
 
-                        $connect=mysql_connect('localhost', 'root', '');
-                        
+                        require_once 'database.php';
 
-                        if(mysqli_connect_errno($connect))
-                        {
-                            echo 'Failed to connect';
-                        }
-                    
-                        mysql_select_db('phpsres', $connect);
+                        $query= "SELECT ItemID, ItemName, SUM(Quantity) AS total FROM Sales GROUP BY ItemID ORDER BY total DESC LIMIT 5";
+                        $result= mysqli_query($con, $query);
+                        if ($result) {
+                            while($row = mysqli_fetch_array($result)){   
+                            echo "<tr>
+                            <td>" . $row['ItemID'] . "</td>
+                            <td>" . $row['ItemName'] . "</td>
+                            <td>" . $row['total'] . "</td>
+                            </tr>";  
+                            }
 
-                        $query = "SELECT * FROM phpsres.Sales ORDER BY SalesID DESC"; 
-                        $result = mysql_query($query);
-                        if (!$result) { 
-                            die('Invalid query: ' . mysql_error());
                         }else
                         {
-                            while($row = mysql_fetch_array($result)){   
-                                echo "<tr>
-                                <td>" . $row['SalesID'] . "</td>
-                                <td>" . $row['CustomerName'] . "</td>
-                                <td>" . $row['ItemName'] . "</td>
-                                <td>" . $row['Country'] . "</td>
-                                <td>" . $row['Quantity'] . "</td>
-                                <td>" . $row['Price'] . "</td>
-                                <td>" . $row['SalesDate'] . "</td>";
-                                echo "<td><a href=\"editSales.php?id=". $row['SalesID'] ."\" class='glyphicon glyphicon-pencil'></td>";
-                                echo "<td><a href=\"deleteSales.php?id=". $row['SalesID'] ."\" class='glyphicon glyphicon-trash' onclick=\"return confirm('Are you sure to delete this?');\">";
-                                echo "</tr>";  
-
-                            }
+                            die('Invalid query: ' . mysqli_error());
                         }
-
-                        
-
-                        mysql_close(); 
-                    
                     ?>
                    
                 </table>
                 <div class="form-group">
-                    <a href="addSales.php" class="btn btn-primary">Add Sales</a>
-                    <a href="exportData.php" class="btn btn-danger" style="display:inline; float:right;">Export into CSV file</a>
+                    <button type="submit" name="btn-save" class="btn btn-primary">Group by Week</button>
+                    <button type="submit" name="btn-save" class="btn btn-primary">Group by Month</button>
+                    <button type="submit" name="btn-save" class="btn btn-primary">Group by Year</button>
                 </div>
-
             </div>
         </div>
     
