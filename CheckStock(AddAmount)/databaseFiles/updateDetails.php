@@ -9,7 +9,7 @@ $ItemID = mysqli_real_escape_string($con, $data->ItemID);
 $Amount = mysqli_real_escape_string($con, $data->Amount);
 
 // mysqli query to insert the updated data
-$query = "UPDATE items SET Amount='$Amount' WHERE ItemID=$ItemID";
+$query = "UPDATE items SET StockLeft='$Amount' WHERE ItemID=$ItemID";
 mysqli_query($con, $query);
 echo true;
 ?>

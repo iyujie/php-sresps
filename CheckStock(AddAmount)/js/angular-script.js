@@ -41,7 +41,7 @@ $('#ProductForm').slideUp();
 $('#editProductForm').slideToggle();
 }
 $scope.UpdateProductInfo = function(info){
-$http.post('databaseFiles/updateDetails.php',{"ItemID":info.ItemID,"Amount":info.Amount}).success(function(data){
+$http.post('databaseFiles/updateDetails.php',{"ItemID":info.ItemID,"Amount":info.StockLeft}).success(function(data){
 $scope.show_form = true;
 if (data == true) {
 getInfo();
