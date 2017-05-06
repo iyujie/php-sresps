@@ -1,6 +1,6 @@
 <?php
 // Including database connections
-require_once 'database_connections.php'; 
+require_once '../database.php'; 
 // mysqli query to fetch all data from database
 $query = "SELECT * from items ORDER BY ItemID ASC";
 $result = mysqli_query($con, $query);

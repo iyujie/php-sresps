@@ -1,6 +1,6 @@
 <?php 
 // Including database connections
-require_once 'database_connections.php';
+require_once '../database.php';
 // Fetching the updated data & storin in new variables
 $data = json_decode(file_get_contents("php://input")); 
 // Escaping special characters from updated data

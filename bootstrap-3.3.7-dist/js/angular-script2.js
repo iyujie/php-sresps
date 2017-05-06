@@ -6,7 +6,7 @@ crudApp.controller("DbController",['$scope','$http', function($scope,$http){
 getInfo();
 function getInfo(){
 // Sending request to EmpDetails.php files 
-$http.post('databaseFiles/empDetails.php').success(function(data){
+$http.post('databaseFiles/empStock.php').success(function(data){
 // Stored the returned data into scope 
 $scope.details = data;
 });
@@ -41,7 +41,7 @@ $('#ProductForm').slideUp();
 $('#editProductForm').slideToggle();
 }
 $scope.UpdateProductInfo = function(info){
-$http.post('databaseFiles/updateDetails.php',{"ItemID":info.ItemID,"Amount":info.StockLeft}).success(function(data){
+$http.post('databaseFiles/updateStock.php',{"ItemID":info.ItemID,"Amount":info.StockLeft}).success(function(data){
 $scope.show_form = true;
 if (data == true) {
 getInfo();

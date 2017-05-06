@@ -10,12 +10,10 @@
 <body>
     <div class="container-fluid" style="width:15%; float:left; padding-top:15px; background-color:#f4f4f4;">
         <ul class="nav nav-pills nav-stacked">
-            <li class="active"><a href="index.php">Home</a></li>
-            <li><a href="index.php">Add Sales</a></li>
-            <li><a href="addSales.php">Add/Delete Product</a></li>
-            <li><a href="addSales.php">Add/Edit Stock</a></li>
-            <li><a href="addSales.php">Sales Graph Visual</a></li>
-            <li><a href="addSales.php">Add Sales</a></li>
+            <li class="active"><a href="index.php">Add Sales</a></li>
+            <li><a href="listProduct.html">Add/Delete Product</a></li>
+            <li><a href="listStock.html">Add/Edit Stock</a></li>
+            <li><a href="#">Sales Graph Visual</a></li>
             <li><a href="predictSales.php">Check In-Demand Products</a></li>
           <li class="disabled"><a href="#">Disabled</a></li>
           <li class="dropdown">
