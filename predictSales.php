@@ -74,7 +74,17 @@
                             $start_date= $_POST['start_date'];
                             $end_date= $_POST['end_date'];
                             $query="select ItemID, ItemName, SUM(Quantity) AS total from Sales where SalesDate between '$start_date 00:00:00 and '$end_date 23:59:00' order by SalesDate desc limit 5";
-                            mysqli_query($con, $query);
+                            $result = mysqli_query($con, $query);
+                            if ($result) {
+                                while($row = mysqli_fetch_array($result)){   
+                                echo "<tr>
+                                <td>" . $row['ItemID'] . "</td>
+                                <td>" . $row['ItemName'] . "</td>
+                                <td>" . $row['total'] . "</td>
+                                </tr>"; 
+                                }
+
+                            }
 
 
                             echo "
@@ -111,8 +121,8 @@
                     ?>
                    
                 </table>
-                
-                <div class="btn-group">
+                <div class="form-group">
+                <div class="btn-group" style="float:left">
                   <a href="#" class="btn btn-primary">Group Top Sales by</a>
                   <a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
                   <ul class="dropdown-menu">
@@ -122,21 +132,23 @@
 
                   </ul>
                 </div>
-                
-                <div class="form-group" style="width:30%">
-                  <label class="control-label">Group by Set Date</label>
-                  <div class="input-group">
-                    <span class="input-group-addon">Start Date</span>
-                    <input class="form-control" type="text" name="start_date" placeholder="yyyy/mm/dd">
-                  </div>
-                  <div class="input-group">
-                    <span class="input-group-addon">End Date</span>
-                    <input class="form-control" type="text" name="end_date" placeholder="yyyy/mm/dd">
-                    <span class="input-group-btn">
-                      <button type="submit" name="btn-save" class="btn btn-primary">Submit</button>
-                    </span>
-                  </div>
-                </div>
+                <form method="post">
+                    <div class="form-group" style="width:30%; float:right;" >
+                      <label class="control-label">Group Top Sales by Particular Date</label>
+                      <div class="input-group">
+                        <span class="input-group-addon">Start Date</span>
+                        <input class="form-control" type="text" name="start_date" placeholder="yyyy/mm/dd">
+                      </div>
+                      <div class="input-group">
+                        <span class="input-group-addon">End Date</span>
+                        <input class="form-control" type="text" name="end_date" placeholder="yyyy/mm/dd">
+                        <span class="input-group-btn">
+                          <button type="submit" name="btn-save" class="btn btn-primary">Submit</button>
+                        </span>
+                      </div>
+                    </div>
+                </form>
+                    </div>
             </div>
         </div>
     
