@@ -24,7 +24,7 @@ $result = mysqli_query($con, $query);
         $price= $_POST['item_price'];
         $sales_date= $_POST['sales_date'];
                                 
-        mysqli_query("UPDATE Sales SET CustomerName = '$customer_name', ItemID = '$item_id', ItemName = '$item_name', Country ='$country', Quantity = '$quantity', Price = '$price', SalesDate = '$sales_date' WHERE SalesID = '$id'");
+        mysqli_query($con, "UPDATE Sales SET CustomerName = '$customer_name', ItemID = '$item_id', ItemName = '$item_name', Country ='$country', Quantity = '$quantity', Price = '$price', SalesDate = '$sales_date' WHERE SalesID = '$id'");
         
         echo "
         <!DOCTYPE html>
