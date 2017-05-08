@@ -1,3 +1,45 @@
+<?php
+
+require_once 'database.php';
+
+if(isset($_POST['btn-save']))
+{
+     
+$start_date= $_POST['start_date'];
+$end_date= $_POST['end_date'];
+$query="select ItemID, ItemName, SUM(Quantity) AS total from Sales where SalesDate between '$start_date 00:00:00' and '$end_date 23:59:00' GROUP BY ItemID ORDER BY total DESC LIMIT 5";
+    
+}
+elseif(isset($_POST['btn-week']))
+{
+    $query="SELECT  ItemID, ItemName, SUM(Quantity) AS total from Sales 
+    WHERE SalesDate > DATE_SUB(NOW(), INTERVAL 1 WEEK) GROUP BY ItemID ORDER BY total DESC LIMIT 5";
+        
+    
+}
+elseif(isset($_POST['btn-month']))
+{
+    $query="SELECT  ItemID, ItemName, SUM(Quantity) AS total from Sales 
+    WHERE SalesDate > DATE_SUB(NOW(), INTERVAL 1 MONTH) GROUP BY ItemID ORDER BY total DESC LIMIT 5";
+}
+elseif(isset($_POST['btn-year']))
+{
+    $query="SELECT  ItemID, ItemName, SUM(Quantity) AS total from Sales 
+    WHERE SalesDate > DATE_SUB(NOW(), INTERVAL 1 YEAR) GROUP BY ItemID ORDER BY total DESC LIMIT 5";
+}
+else
+{
+     
+    $query= "SELECT ItemID, ItemName, SUM(Quantity) AS total FROM Sales GROUP BY ItemID ORDER BY total DESC LIMIT 5";
+}
+                            
+
+
+                       
+
+
+                        
+?>
 
 
 
@@ -58,7 +100,7 @@
                 </div>
                 <table class="table table-stripped table-hover" id="table">
                     <tr>
-                        <th>ID</th>
+                        <th>Item ID</th>
                         <th>Item Name</th>
                         <th>Quantity Sold</th>
                        
@@ -67,42 +109,8 @@
 
                         require_once 'database.php';
                         
-                        if(isset($_POST['btn-save']))
-                        {
-
-
-                            $start_date= $_POST['start_date'];
-                            $end_date= $_POST['end_date'];
-                            $query="select ItemID, ItemName, SUM(Quantity) AS total from Sales where SalesDate between '$start_date 00:00:00 and '$end_date 23:59:00' order by SalesDate desc limit 5";
-                            $result = mysqli_query($con, $query);
-                            if ($result) {
-                                while($row = mysqli_fetch_array($result)){   
-                                echo "<tr>
-                                <td>" . $row['ItemID'] . "</td>
-                                <td>" . $row['ItemName'] . "</td>
-                                <td>" . $row['total'] . "</td>
-                                </tr>"; 
-                                }
-
-                            }
-
-
-                            echo "
-                        <!DOCTYPE html>
-                        <script>
-                        function redir()
-                        {
-                        alert('Updated list.');
-                        window.location.assign('predictSales.php');
-                        }
-                        </script>
-                        <body onload='redir();'></body>";
-
-
-                        }
-                        else{
-
-                            $query= "SELECT ItemID, ItemName, SUM(Quantity) AS total FROM Sales GROUP BY ItemID ORDER BY total DESC LIMIT 5";
+                        
+                            
                             $result= mysqli_query($con, $query);
                             if ($result) {
                                 while($row = mysqli_fetch_array($result)){   
@@ -113,27 +121,20 @@
                                 </tr>";  
                                 }
 
-                            }else
-                            {
-                                die('Invalid query: ' . mysqli_error());
                             }
-                        }
                     ?>
                    
                 </table>
-                <div class="form-group">
-                <div class="btn-group" style="float:left">
-                  <a href="#" class="btn btn-primary">Group Top Sales by</a>
-                  <a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
-                  <ul class="dropdown-menu">
-                    <li><a href="#">Weekly</a></li>
-                    <li><a href="#">Monthly</a></li>
-                    <li><a href="#">Yearly</a></li>
-
-                  </ul>
-                </div>
                 <form method="post">
-                    <div class="form-group" style="width:30%; float:right;" >
+                <div class="form-group" style="float:left;">
+                
+                    <button type="submit" name="btn-week" class="btn btn-primary">Weekly</button>
+                      <button type="submit" name="btn-month" class="btn btn-primary">Monthly</button>
+                      <button type="submit" name="btn-year" class="btn btn-primary">Yearly</button>
+                  
+                </div>
+                
+                <div class="form-group" style="width:30%; float:right;" >
                       <label class="control-label">Group Top Sales by Particular Date</label>
                       <div class="input-group">
                         <span class="input-group-addon">Start Date</span>
@@ -146,7 +147,7 @@
                           <button type="submit" name="btn-save" class="btn btn-primary">Submit</button>
                         </span>
                       </div>
-                    </div>
+                </div>
                 </form>
                     </div>
             </div>
