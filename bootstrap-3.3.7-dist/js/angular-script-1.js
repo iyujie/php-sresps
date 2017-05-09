@@ -28,11 +28,13 @@ $('#ProductForm').css('display', 'none');
 });
 }
 $scope.deleteProductInfo = function(info){
-$http.post('databaseFiles/deleteDetails.php',{"del_id":info.ItemID}).success(function(data){
-if (data == true) {
-getInfo();
+if (confirm("Are you sure you want to delete this?")) {  
+	$http.post('databaseFiles/deleteDetails.php',{"del_id":info.ItemID}).success(function(data){
+		if (data == true) {
+		getInfo();
+		}
+	});
 }
-});
 }
 $scope.currentProduct = {};
 $scope.editProductInfo = function(info){

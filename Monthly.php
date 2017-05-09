@@ -1,11 +1,22 @@
+<?php
+require_once"database.php";
+if(isset($_POST['btn-generate']))
+{
+$date1= $_POST["date1"];
+$date2= $_POST["date2"];
+}
+
+?>
+
 <html ng-app="crudApp">
 <head>
 <title>Monthly Sales</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <!-- Include main CSS -->
- <link href="https://bootswatch.com/simplex/bootstrap.min.css" rel="stylesheet"/>
-
+<link href="https://bootswatch.com/simplex/bootstrap.min.css" rel="stylesheet"/>
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+	
 <!-- Include jQuery library -->
 <script src="bootstrap-3.3.7-dist/js/jQuery/jquery.min.js"></script>
 
@@ -14,7 +25,8 @@
 
 <!-- Include Bootstrap Javascript -->
 <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
-
+	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 </head>
 
 <body >
@@ -65,6 +77,15 @@
                     <a href="Monthly.php" class="btn btn-primary">Monthly</a>
                 </div>
 				
+			<form name="form1" method="post" >	
+				 <div class="col-md-2">Start Date: <input type="text" id="date_picker1" name="date1" size=9 value="<?php if (isset($_POST['date1'])) echo $_POST['date1']; ?>"/></div>
+				<div class="col-md-2">End Date: <input type="text" id="date_picker2" name="date2" size=9 value="<?php if (isset($_POST['date2'])) echo $_POST['date2']; ?>"/></div>
+				<div class="form-group">
+                    <button type="submit" name="btn-generate" class="btn btn-primary">Generate</button>
+					<a href="Monthly.php"><input type=button class="btn btn-primary" value="Refresh"></a>
+                </div>
+			</form>
+			
 				<div class="clearfix"></div>
 				
          
@@ -100,23 +121,17 @@
 					</tr-->
                    <?php
 
-                        $connect=mysql_connect('localhost', 'root', '');
-                        
-
-                        if(mysqli_connect_errno($connect))
-                        {
-                            echo 'Failed to connect';
-                        }
-                    
-                        mysql_select_db('phpsres', $connect);
+						require_once "database.php";
 
                         $query = "SELECT * FROM sales ORDER BY SalesDate ASC"; 
-                        $result = mysql_query($query);
-                        if (!$result) { 
-                            die('Invalid query: ' . mysql_error());
-                        }else
-                        {
-							$row = mysql_fetch_array($result);
+                        $result = mysqli_query($con, $query);
+						
+						if (!empty($date1) && !empty($date2) && isset($_POST['btn-generate']))
+						{
+							$query1 = "SELECT * FROM sales WHERE SalesDate between '$date1' and '$date2' ORDER BY SalesDate ASC"; 
+							$result1 = mysqli_query($con, $query1);
+							
+							$row = mysqli_fetch_array($result1);
 							$x = $row['SalesDate'];
 							$time = strtotime($x);
 							echo "<tr><th colspan='8'>";
@@ -155,13 +170,52 @@
                                 echo "</tr>"; 
 								
 								
-                            }while($row = mysql_fetch_array($result));
+                            }while($row = mysqli_fetch_array($result1));
+			
+                        }else if ($result) 
+						{
+							$row = mysqli_fetch_array($result);
+							$x = $row['SalesDate'];
+							$time = strtotime($x);
+							echo "<tr><th colspan='8'>";
+							echo date('F', $time);
+							echo "  ";
+							echo date('Y', $time);
+							echo "</th></tr>";
+							do
+                            {
+								
+								$x = $row['SalesDate'];
+								
+								$time1 = strtotime($x);
+								if(date('m', $time) != date('m', $time1) || date('Y', $time) != date('Y', $time1)){
+									echo "<tr><td colspan='8'></td></tr>";
+									echo "<tr><td colspan='8'></td></tr>";
+									echo "<tr border='0'><td colspan='8'></td></tr>";
+									echo "<tr><th colspan='8'>";
+									echo date('F', $time1);
+									echo "  ";
+									echo date('Y', $time1);
+									echo "</th></tr>";
+								}
+								$x = $row['SalesDate'];
+								$time = strtotime($x);
+								
+								
+                                echo "<tr>
+                                <td>" . $row['SalesID'] . "</td>
+                                <td>" . $row['CustomerName'] . "</td>
+                                <td>" . $row['ItemName'] . "</td>
+                                <td>" . $row['Country'] . "</td>
+                                <td>" . $row['Quantity'] . "</td>
+                                <td>" . $row['Price'] . "</td>
+                                <td>" . $row['SalesDate'] . "</td>";
+                                echo "</tr>"; 
+								
+								
+                            }while($row = mysqli_fetch_array($result));
 							
                         }
-
-                        
-
-                        mysql_close(); 
                     
                     ?>
                     
@@ -171,26 +225,37 @@
             </div>
         </div>
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-			
-			
-			
-			
-		
-
-		
 	</div>
 
 <!-- Include controller -->
+<script>
+$(document).ready(function() {
 
+	var startDate;
+	var endDate;
+	$( "#date_picker1" ).datepicker({
+		dateFormat: 'yy-mm-dd'
+	})
+
+	
+	$( "#date_picker2" ).datepicker({
+		dateFormat: 'yy-mm-dd'
+	});
+
+	$('#date_picker1').change(function() {
+		startDate = $(this).datepicker('getDate');
+		$("#date_picker2").datepicker("option", "minDate", startDate );
+	})
+
+
+	$('#date_picker2').change(function() {
+		endDate = $(this).datepicker('getDate');
+		$("#date_picker1").datepicker("option", "maxDate", endDate );
+	})
+
+})
+
+</script>
 
 </body>
 </html>
