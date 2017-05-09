@@ -7,30 +7,34 @@ if(isset($_POST['btn-save']))
      
 $start_date= $_POST['start_date'];
 $end_date= $_POST['end_date'];
-$query="select ItemID, ItemName, SUM(Quantity) AS total from Sales where SalesDate between '$start_date 00:00:00' and '$end_date 23:59:00' GROUP BY ItemID ORDER BY total DESC LIMIT 5";
+$query="select Sales.ItemID, Sales.ItemName, SUM(Sales.Quantity) AS total, Items.StockLeft from Sales INNER JOIN Items ON Sales.ItemID=Items.ItemID where SalesDate between '$start_date 00:00:00' and '$end_date 23:59:00' GROUP BY ItemID ORDER BY total DESC LIMIT 10";
     
 }
 elseif(isset($_POST['btn-week']))
 {
-    $query="SELECT  ItemID, ItemName, SUM(Quantity) AS total from Sales 
-    WHERE SalesDate > DATE_SUB(NOW(), INTERVAL 1 WEEK) GROUP BY ItemID ORDER BY total DESC LIMIT 5";
+    $query="select Sales.ItemID, Sales.ItemName, SUM(Sales.Quantity) AS total, Items.StockLeft from Sales INNER JOIN Items ON Sales.ItemID=Items.ItemID WHERE SalesDate > DATE_SUB(NOW(), INTERVAL 1 WEEK) GROUP BY ItemID ORDER BY total DESC LIMIT 10";
         
+    
     
 }
 elseif(isset($_POST['btn-month']))
 {
-    $query="SELECT  ItemID, ItemName, SUM(Quantity) AS total from Sales 
-    WHERE SalesDate > DATE_SUB(NOW(), INTERVAL 1 MONTH) GROUP BY ItemID ORDER BY total DESC LIMIT 5";
+    $query="select Sales.ItemID, Sales.ItemName, SUM(Sales.Quantity) AS total, Items.StockLeft from Sales INNER JOIN Items ON Sales.ItemID=Items.ItemID WHERE SalesDate > DATE_SUB(NOW(), INTERVAL 1 MONTH) GROUP BY ItemID ORDER BY total DESC LIMIT 10";
 }
 elseif(isset($_POST['btn-year']))
 {
-    $query="SELECT  ItemID, ItemName, SUM(Quantity) AS total from Sales 
-    WHERE SalesDate > DATE_SUB(NOW(), INTERVAL 1 YEAR) GROUP BY ItemID ORDER BY total DESC LIMIT 5";
+    $query="select Sales.ItemID, Sales.ItemName, SUM(Sales.Quantity) AS total, Items.StockLeft from Sales INNER JOIN Items ON Sales.ItemID=Items.ItemID WHERE SalesDate > DATE_SUB(NOW(), INTERVAL 1 YEAR) GROUP BY ItemID ORDER BY total DESC LIMIT 10";
+}
+elseif(isset($_POST['btn-alltime']))
+{
+    $query= "select Sales.ItemID, Sales.ItemName, SUM(Sales.Quantity) AS total, Items.StockLeft from Sales INNER JOIN Items ON Sales.ItemID=Items.ItemID GROUP BY ItemID ORDER BY total DESC LIMIT 10";
+        
+    
 }
 else
 {
      
-    $query= "SELECT ItemID, ItemName, SUM(Quantity) AS total FROM Sales GROUP BY ItemID ORDER BY total DESC LIMIT 5";
+    $query= "select Sales.ItemID, Sales.ItemName, SUM(Sales.Quantity) AS total, Items.StockLeft from Sales INNER JOIN Items ON Sales.ItemID=Items.ItemID GROUP BY ItemID ORDER BY total DESC LIMIT 10";
 }
                             
 
@@ -52,6 +56,8 @@ else
     <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
     <script src="bootstrap-3.3.7-dist/js/jquery.min.js"></script>
     <script src="bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 </head>
 <body>
     <div class="container-fluid" style="width:15%; float:left; padding-top:15px; background-color:#f4f4f4;">
@@ -102,6 +108,7 @@ else
                         <th>Item ID</th>
                         <th>Item Name</th>
                         <th>Quantity Sold</th>
+                        <th>Stock Remaining</th>
                        
                     </tr>
                     <?php
@@ -117,6 +124,7 @@ else
                                 <td>" . $row['ItemID'] . "</td>
                                 <td>" . $row['ItemName'] . "</td>
                                 <td>" . $row['total'] . "</td>
+                                <td>" . $row['StockLeft'] . "</td>
                                 </tr>";  
                                 }
 
@@ -130,18 +138,19 @@ else
                     <button type="submit" name="btn-week" class="btn btn-primary">Weekly</button>
                       <button type="submit" name="btn-month" class="btn btn-primary">Monthly</button>
                       <button type="submit" name="btn-year" class="btn btn-primary">Yearly</button>
-                  
+                  <button type="submit" name="btn-alltime" class="btn btn-primary">All Time</button>
                 </div>
                 
                 <div class="form-group" style="width:30%; float:right;" >
                       <label class="control-label">Group Top Sales by Particular Date</label>
                       <div class="input-group">
                         <span class="input-group-addon">Start Date</span>
-                        <input class="form-control" type="text" name="start_date" placeholder="yyyy/mm/dd">
+                          
+                        <input class="form-control" type="text" id="date_picker1" name="start_date" size=9/>
                       </div>
                       <div class="input-group">
                         <span class="input-group-addon">End Date</span>
-                        <input class="form-control" type="text" name="end_date" placeholder="yyyy/mm/dd">
+                        <input class="form-control" type="text" id="date_picker2" name="end_date" size=9/>
                         <span class="input-group-btn">
                           <button type="submit" name="btn-save" class="btn btn-primary">Submit</button>
                         </span>
@@ -152,9 +161,7 @@ else
             </div>
         </div>
     
-    </div>
-    
-    
+
     
     <!--scripts-->
 <script>
@@ -173,7 +180,34 @@ else
     });    
 
 </script>    
+<script>
+$(document).ready(function() {
 
+	var startDate;
+	var endDate;
+	$( "#date_picker1" ).datepicker({
+		dateFormat: 'yy-mm-dd'
+	})
+
+	
+	$( "#date_picker2" ).datepicker({
+		dateFormat: 'yy-mm-dd'
+	});
+
+	$('#date_picker1').change(function() {
+		startDate = $(this).datepicker('getDate');
+		$("#date_picker2").datepicker("option", "minDate", startDate );
+	})
+
+
+	$('#date_picker2').change(function() {
+		endDate = $(this).datepicker('getDate');
+		$("#date_picker1").datepicker("option", "maxDate", endDate );
+	})
+
+})
+
+</script>
 
     
     

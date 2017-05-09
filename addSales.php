@@ -70,7 +70,10 @@ if(isset($_POST['btn-save']))
     <meta name="viewport" content="width=device-width, intial-scale=1.0"/>
     <link href="https://bootswatch.com/simplex/bootstrap.min.css" rel="stylesheet"/>
     <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
-    
+    <script src="bootstrap-3.3.7-dist/js/jquery.min.js"></script>
+    <script src="bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 </head>
 <body>
     <div class="container-fluid">
@@ -131,7 +134,7 @@ if(isset($_POST['btn-save']))
 
                 <div class="form-group">
                     <label for="dateSold">Date:</label>         
-                    <input type='text' name="sales_date" class="form-control" placeholder="yyyy/mm/dd"/>
+                    <input type='text' name="sales_date" id="date_picker1" size=9 class="form-control" />
 
                 </div>
 
@@ -147,6 +150,34 @@ if(isset($_POST['btn-save']))
             
         </div>
     </div>
+<script>
+$(document).ready(function() {
+
+	var startDate;
+	var endDate;
+	$( "#date_picker1" ).datepicker({
+		dateFormat: 'yy-mm-dd'
+	})
+
+	
+	$( "#date_picker2" ).datepicker({
+		dateFormat: 'yy-mm-dd'
+	});
+
+	$('#date_picker1').change(function() {
+		startDate = $(this).datepicker('getDate');
+		$("#date_picker2").datepicker("option", "minDate", startDate );
+	})
+
+
+	$('#date_picker2').change(function() {
+		endDate = $(this).datepicker('getDate');
+		$("#date_picker1").datepicker("option", "maxDate", endDate );
+	})
+
+})
+
+</script>
     </body>
 </html>
        

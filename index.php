@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, intial-scale=1.0"/>
     <link href="https://bootswatch.com/simplex/bootstrap.min.css" rel="stylesheet"/>
     <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <script src="bootstrap-3.3.7-dist/js/jquery.min.js"></script>
+    <script src="bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
     
 </head>
 <body>
@@ -62,37 +66,17 @@
                         <th>Date</th>
                        
                     </tr>
-                    <!--tr data-ng-repeat="item in data | filter:search">
-                        <td>{{item.id}}</td>
-                        <td>{{item.name}}</td>
-                        <td>{{item.item}}</td>
-                        <td>{{item.country}}</td>
-                        <td>{{item.quantity}}</td>
-                        <td>{{item.price}}</td>
-                        <td>{{item.date}}</td>
-                        
-                        <td style="border:none"> <button class="glyphicon glyphicon-edit" data-ng-click="editSales($index)"></button></td>
-                        <td style="border:none"> <button class="glyphicon glyphicon-trash" data-ng-click="delSales($index)"></button></td>
-                    </tr -->
                     <?php
 
-                        $connect=mysql_connect('localhost', 'root', '');
-                        
+                        require_once "database.php";
 
-                        if(mysqli_connect_errno($connect))
-                        {
-                            echo 'Failed to connect';
-                        }
-                    
-                        mysql_select_db('phpsres', $connect);
-
-                        $query = "SELECT * FROM phpsres.Sales ORDER BY SalesID DESC"; 
-                        $result = mysql_query($query);
+                        $query = "SELECT * FROM Sales ORDER BY SalesID DESC"; 
+                        $result = mysqli_query($con, $query);
                         if (!$result) { 
-                            die('Invalid query: ' . mysql_error());
+                            die('Invalid query: ' . mysqli_error());
                         }else
                         {
-                            while($row = mysql_fetch_array($result)){   
+                            while($row = mysqli_fetch_array($result)){   
                                 echo "<tr>
                                 <td>" . $row['SalesID'] . "</td>
                                 <td>" . $row['CustomerName'] . "</td>
@@ -108,9 +92,6 @@
                             }
                         }
 
-                        
-
-                        mysql_close(); 
                     
                     ?>
                    
@@ -143,7 +124,7 @@
         }).hide();
     });    
 
-</script>    
+</script>     
 
 
     
