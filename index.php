@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
     
+    
 </head>
 <body>
     <div class="container-fluid" style="width:15%; float:left; padding-top:15px; background-color:#f4f4f4;">
@@ -55,7 +56,25 @@
                 <div class="form-group">
                     <input type="text" class="form-control" id="search"  placeholder="Search item, customer, etc">
                 </div>
-                <table class="table table-stripped table-hover" id="table">
+                
+                    <?php
+
+                        require_once "database.php";
+                        if (!isset($_GET['startrow']) or !is_numeric($_GET['startrow'])) {
+  //we give the value of the starting row to 0 because nothing was found in URL
+  $startrow = 0;
+//otherwise we take the value from the URL
+} else {
+  $startrow = (int)$_GET['startrow'];
+}
+                    
+                    
+                        $query = "SELECT * FROM Sales ORDER BY SalesID DESC LIMIT $startrow, 10"; 
+                        $result = mysqli_query($con, $query)or die('Invalid query: ' . mysqli_error());
+                        $num=mysqli_num_rows($result);
+                        if($num>0)
+                        {
+                            echo "<table class='table table-stripped table-hover' id='table'>
                     <tr>
                         <th>ID</th>
                         <th>Customer Name</th>
@@ -65,19 +84,12 @@
                         <th>Price</th>
                         <th>Date</th>
                        
-                    </tr>
-                    <?php
-
-                        require_once "database.php";
-
-                        $query = "SELECT * FROM Sales ORDER BY SalesID DESC"; 
-                        $result = mysqli_query($con, $query);
-                        if (!$result) { 
-                            die('Invalid query: ' . mysqli_error());
-                        }else
-                        {
-                            while($row = mysqli_fetch_array($result)){   
-                                echo "<tr>
+                    </tr>";
+                                
+                                for($i=0;$i<$num;$i++)
+                                {
+                                    $row = mysqli_fetch_array($result);
+                                        echo "<tr>
                                 <td>" . $row['SalesID'] . "</td>
                                 <td>" . $row['CustomerName'] . "</td>
                                 <td>" . $row['ItemName'] . "</td>
@@ -87,15 +99,28 @@
                                 <td>" . $row['SalesDate'] . "</td>";
                                 echo "<td><a href=\"editSales.php?id=". $row['SalesID'] ."\" class='glyphicon glyphicon-pencil'></td>";
                                 echo "<td><a href=\"deleteSales.php?id=". $row['SalesID'] ."\" class='glyphicon glyphicon-trash' onclick=\"return confirm('Are you sure to delete this?');\">";
-                                echo "</tr>";  
-
-                            }
+                                echo "</tr>"; 
+                                }
+                            echo"</table>";
                         }
-
+                
+                     
                     
                     ?>
                    
-                </table>
+                <ul class="pager">
+                <?php
+                    
+$prev = $startrow - 10;
+
+//only print a "Previous" link if a "Next" was clicked
+if ($prev >= 0)
+    echo '<li><a href="'.$_SERVER['PHP_SELF'].'?startrow='.$prev.'">Previous</a></li>';
+                echo '<li><a href="'.$_SERVER['PHP_SELF'].'?startrow='.($startrow+10).'">Next</a></li>';
+
+
+?>
+                </ul>
                 <div class="form-group">
                     <a href="addSales.php" class="btn btn-primary">Add Sales</a>
                     <a href="exportData.php" class="btn btn-danger" style="display:inline; float:right;">Export into CSV file</a>
@@ -105,8 +130,8 @@
         </div>
     
     </div>
-    
-    
+
+    <script>
     
     <!--scripts-->
 <script>
@@ -123,7 +148,8 @@
             return !reg.test(text);
         }).hide();
     });    
-
+    
+    
 </script>     
 
 
