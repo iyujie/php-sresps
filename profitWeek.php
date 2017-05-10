@@ -77,7 +77,7 @@ $date2= $_POST["date2"];
 				<div class="col-md-2">End Date: <input type="text" id="date_picker2" name="date2" size=9 value="<?php if (isset($_POST['date2'])) echo $_POST['date2']; ?>"/></div>
 				<div class="form-group">
                     <button type="submit" name="btn-generate" class="btn btn-primary">Generate</button>
-					<a href="Weekly.php"><input type=button class="btn btn-primary" value="Refresh"></a>
+					<a href="profitWeek.php"><input type=button class="btn btn-primary" value="Refresh"></a>
                 </div>
 			</form>
 				<div class="clearfix"></div>
