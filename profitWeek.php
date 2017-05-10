@@ -107,8 +107,9 @@ $date2= $_POST["date2"];
 							$x = $row['SalesDate'];
 							$time = strtotime($x);
 							echo "<tr><td>";
-							echo date('W', $time);
-							echo date('S', $time);
+							//echo date('W', $time);
+							//echo date('S', $time);
+							echo ordinal_suffix(date('W', $time));
 							echo "  Week  of  ";
 							echo date('Y', $time);
 							echo "  in  ";
@@ -126,8 +127,9 @@ $date2= $_POST["date2"];
 									echo "</tr>"; 
 									
 									echo "<tr><td>";
-									echo date('W', $time1);
-									echo date('S', $time1);
+									//echo date('W', $time1);
+									//echo date('S', $time1);
+									echo ordinal_suffix(date('W', $time1));
 									echo "  Week  of  ";
 									echo date('Y', $time1);
 									echo "  in  ";
@@ -155,8 +157,9 @@ $date2= $_POST["date2"];
 							$x = $row['SalesDate'];
 							$time = strtotime($x);
 							echo "<tr><td>";
-							echo date('W', $time);
-							echo date('S', $time);
+							//echo date('W', $time);
+							//echo date('S', $time);
+							echo ordinal_suffix(date('W', $time));
 							echo "  Week  of  ";
 							echo date('Y', $time);
 							echo "  in  ";
@@ -174,8 +177,9 @@ $date2= $_POST["date2"];
 									echo "</tr>"; 
 									
 									echo "<tr><td>";
-									echo date('W', $time1);
-									echo date('S', $time1);
+									//echo date('W', $time1);
+									//echo date('S', $time1);
+									echo ordinal_suffix(date('W', $time1));
 									echo "  Week  of  ";
 									echo date('Y', $time1);
 									echo "  in  ";
@@ -197,7 +201,37 @@ $date2= $_POST["date2"];
 							<td>"  . number_format($total, 2). "</td>";
 							echo "</tr>"; 
                         }
-                
+ 
+function ordinal_suffix($number, $wrapper = false)
+{
+  $suffix = '';
+  if ($number % 100 > 10 && $number % 100 < 14) {
+    $suffix = 'th';
+  } elseif ($number > 0) {
+    $digit = substr($number, -1, 1);
+ 
+    switch ($digit) {
+      case 1:
+        $suffix = 'st';
+      break;
+      case 2:
+        $suffix = 'nd';
+      break;
+      case 3:
+        $suffix = 'rd';
+      break;
+      default:
+        $suffix = 'th';
+      break;
+    }			
+  }
+ 
+  if ($wrapper) {
+    return sprintf('%2$s<%1$s>%3$s</%1$s>', $wrapper, $number, $suffix);
+  }
+ 
+  return $number . $suffix;
+}          
                     ?>
                     
                 </table>
