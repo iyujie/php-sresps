@@ -19,7 +19,6 @@
             <li><a href="listProduct.html">Add/Delete Product</a></li>
             <li><a href="listStock.html">Add/Edit Stock</a></li>
 			<li><a href="Weekly.php">Weekly/Monthly Sales</a></li>
-			<li><a href="profitDay.php">Daily/Weekly/Monthly Profit</a></li>
             <li><a href="#">Sales Graph Visual</a></li>
             <li><a href="predictSales.php">Check In-Demand Products</a></li>
           <li class="disabled"><a href="#">Disabled</a></li>
@@ -50,13 +49,17 @@
                     <h1>People Health Pharmacy (PHP) Inc. Sales Module</h1>
                     
             </div>
+            
         </div>
-        
         <div class="row">
             <div class="col-xs-12">
                 <div class="form-group">
                     <input type="text" class="form-control" id="search"  placeholder="Search item, customer, etc">
                 </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
                 
                     <?php
 
@@ -134,8 +137,7 @@ if ($prev >= 0)
 
     <script>
     
-    <!--scripts-->
-<script>
+    
 
     var $rows = $('#table tr');
     $('#search').keyup(function() {
