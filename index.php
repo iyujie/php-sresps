@@ -19,7 +19,7 @@
             <li><a href="listProduct.html">Add/Delete Product</a></li>
             <li><a href="listStock.html">Add/Edit Stock</a></li>
 			<li><a href="Weekly.php">Weekly/Monthly Sales</a></li>
-            <li><a href="#">Sales Graph Visual</a></li>
+            <li><a href="Graph.php">Sales Graph Visual</a></li>
             <li><a href="predictSales.php">Check In-Demand Products</a></li>
           <li class="disabled"><a href="#">Disabled</a></li>
           <li class="dropdown">
